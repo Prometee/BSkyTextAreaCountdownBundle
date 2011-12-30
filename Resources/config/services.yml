@@ -1,0 +1,8 @@
+parameters:
+     bsky_textareacountdown.form.type.class: BSky\Bundle\TextAreaCountdownBundle\Form\Extension\Type\TextAreaCountdownType
+     
+services:
+    form.type.bsky_textareacountdown:
+        class: %bsky_textareacountdown.form.type.class%
+        tags:
+            - { name: form.type, alias: bsky_textareacountdown }

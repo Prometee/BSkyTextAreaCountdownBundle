@@ -1,0 +1,59 @@
+{% block bsky_textareacountdown_style %}
+<style>
+	#form_bsky_textareacountdown_{{ id }} .form_bsky_textareacountdown_count {
+		background: #F0F0F0;
+		font-weight: bold;
+		font-size: 14px;
+		padding: 0 5px;
+		margin: 0 0 0 5px;
+	}
+</style>
+{% endblock %}
+
+{% block bsky_textareacountdown_widget %}
+	{{ block('bsky_textareacountdown_style') }}
+	<div class="form_bsky_textareacountdown" id="form_bsky_textareacountdown_{{ id }}">
+		{{ block('textarea_widget') }}
+		<span class="form_bsky_textareacountdown_count"></span>
+	</div>
+	{{ block('bsky_textareacountdown_script') }}
+{% endblock %}
+	
+{% block bsky_textareacountdown_script %}
+<script>
+//In the case where you load jQuery at the bottom of the page
+//we wait for jQuery
+(function() {
+	var char_limit = parseInt({{ char_limit }});
+	if (char_limit > 0) {
+		var waitJQuery = function() {
+			if (window.jQuery && jQuery.ui) {
+				
+				var el = jQuery('#{{ id }}'),
+					count = jQuery('.form_bsky_textareacountdown_count', el.parent()),
+					keyupEvent = function() {
+						
+						var ret = true;
+						if (el.val().length > char_limit) {
+							el.val(el.val().substring(0, char_limit));
+							ret = false;
+						}
+
+						count
+							.width(el.width())
+							.html(char_limit - parseInt(el.val().length));
+
+						return ret;
+					};
+				
+				el.keyup(keyupEvent);
+				keyupEvent();
+			} else {
+				window.setTimeout(waitJQuery, 1);
+			}
+		}
+		waitJQuery();
+	}
+})();
+</script>
+{% endblock %}
