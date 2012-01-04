@@ -1,11 +1,8 @@
 {% block bsky_textareacountdown_style %}
 <style>
 	#form_bsky_textareacountdown_{{ id }} .form_bsky_textareacountdown_count {
-		background: #F0F0F0;
-		font-weight: bold;
-		font-size: 14px;
-		padding: 0 5px;
-		margin: 0 0 0 5px;
+		color: #F0F0F0;
+		font-size: 10px;
 	}
 </style>
 {% endblock %}
@@ -14,7 +11,7 @@
 	{{ block('bsky_textareacountdown_style') }}
 	<div class="form_bsky_textareacountdown" id="form_bsky_textareacountdown_{{ id }}">
 		{{ block('textarea_widget') }}
-		<span class="form_bsky_textareacountdown_count"></span>
+		<div class="form_bsky_textareacountdown_count"></div>
 	</div>
 	{{ block('bsky_textareacountdown_script') }}
 {% endblock %}
@@ -39,7 +36,7 @@
 							ret = false;
 						}
 
-						count.html(char_limit - parseInt(el.val().length));
+						count.html(parseInt(el.val().length) + '/' + char_limit);
 
 						return ret;
 					};
